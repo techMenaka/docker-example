@@ -1,0 +1,33 @@
+Create a Spring boot application
+Enable Spring MVC
+Start the application and access http://localhost:8080/
+
+buid a jar of the applciation
+./gradlew build && java -jar build/libs/docker-example-0.0.1.jar
+
+create a docker file in any location
+
+add task to build.gradle
+apply plugin: 'docker'
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = true
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}
+
+group = 'menakak'
+-- above group should be added to push it to particular dockerhub location
+
+Run following command to build docker image
+./gradlew build buildDocker
+
+
+use this to down load and run the docker image
+ docker run -p 8080:8080 -t menakak/docker-example
