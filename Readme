@@ -31,3 +31,7 @@ Run following command to build docker image
 
 use this to down load and run the docker image
  docker run -p 8080:8080 -t menakak/docker-example
+
+
+ use the following command to run it as a daemon
+ docker run -d -p 8080:8080 -t menakak/docker-example
